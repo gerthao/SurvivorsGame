@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckyjio648sjd"]
+
+[ext_resource type="PackedScene" uid="uid://c8yu5icorxhri" path="res://scenes/component/health_component/health_component.tscn" id="1_ix7fd"]
+[ext_resource type="PackedScene" uid="uid://bw0u0v05aqcqw" path="res://scenes/component/hurtbox_component/hurtbox_component.tscn" id="2_eh3js"]
+[ext_resource type="Script" path="res://scenes/component/hurtbox_component/hurtbox_component.gd" id="3_l5lhf"]
+
+[node name="Enemy" type="CharacterBody2D"]
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_ix7fd")]
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("2_eh3js")]
+
+[node name="HurtboxComponent" type="CollisionShape2D" parent="HurtboxComponent"]
+script = ExtResource("3_l5lhf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

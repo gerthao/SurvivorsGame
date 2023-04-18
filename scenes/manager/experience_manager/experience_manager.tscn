@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjq7gtyet5s7o"]
+
+[sub_resource type="GDScript" id="GDScript_7mlx1"]
+script/source = "extends Node
+
+signal experience_updated(current: float, target: float)
+signal level_up(new_level: int)
+
+const TARGET_EXPERIENCE_GROWTH = 5
+
+var current_experience = 0
+var current_level = 1
+var target_experience = 5
+
+
+func _ready():
+	GameEvents.experience_vial_collected.connect(on_experience_vial_collected)
+
+
+func increment_experience(amount: float) -> void:
+	current_experience = min(current_experience + amount, target_experience)
+
+
+func on_experience_vial_collected(amount: float) -> void:
+	experience_emit_after(func(): increment_experience(amount))
+	experience_emit_after(handle_level_up)
+
+
+func handle_level_up():
+	if can_level_up():
+		update_level()
+		level_up.emit(current_level)
+
+
+func update_level():
+	current_level += 1
+	target_experience += TARGET_EXPERIENCE_GROWTH
+	current_experience = 0
+	
+
+func can_level_up() -> bool:
+	return current_experience >= target_experience
+	
+	
+func experience_emit_after(f: Callable) -> Variant:
+	var result = f.call()
+	experience_updated.emit(current_experience, target_experience)
+	return result
+"
+
+[node name="ExperienceManager" type="Node"]
+script = SubResource("GDScript_7mlx1")
