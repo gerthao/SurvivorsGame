@@ -1,11 +1,14 @@
 extends Node
+class_name ArenaTimeManager
+
 
 signal difficulty_increased
 
 const DIFFICULTY_INTERVAL = 5
 
 @export var victory_screen_scene: PackedScene
-@onready var timer = $Timer
+
+@onready var timer: Timer = get_node("Timer")
 
 var difficulty: float    = 0
 var previous_time: float = 0
@@ -26,7 +29,7 @@ func next_time_target() -> float:
 func manage_difficulty() -> void:
 	if (timer.time_left <= next_time_target()):
 		difficulty += 1
-		difficulty_increased.emit()
+		difficulty_increased.emit(difficulty)
 
 
 func get_time_elasped() -> float:

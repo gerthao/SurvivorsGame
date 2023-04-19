@@ -2,9 +2,11 @@ extends Node
 
 @export var end_screen_scene: PackedScene
 
+@onready var player: Player = get_node("Entities/Player")
+
 
 func _ready():
-	$Entities/Player.health_component.died.connect(on_player_died)
+	player.health_component.died.connect(on_player_died)
 	
 	
 func on_player_died():

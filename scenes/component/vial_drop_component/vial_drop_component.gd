@@ -1,4 +1,5 @@
 extends Node
+class_name VialDropComponent
 
 @export_range(0, 1) var drop_percent: float = .5
 @export var health_component: HealthComponent

@@ -1,8 +1,8 @@
 extends CanvasLayer
-class_name ExperienceBar
+
 
 @export var experience_manager: Node
-@onready var progress_bar = $MarginContainer/ProgressBar
+@onready var progress_bar: ProgressBar = $MarginContainer/ProgressBar
 
 
 func _ready():

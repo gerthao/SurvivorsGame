@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://m7xp0e6su5og"]
 
 [ext_resource type="Script" path="res://scenes/ui/experience_bar/experience_bar.gd" id="1_aj1qj"]
 

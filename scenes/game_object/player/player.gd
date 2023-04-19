@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 const BASE_SPEED             = 125
 const ACCELERATION_SMOOTHING = 25
@@ -65,7 +66,6 @@ func check_deal_damage() -> void:
 		return
 	health_component.take_damage(1)
 	damage_interval_timer.start()
-	print(health_component.current_health)
 	
 
 func update_health_bar_display() -> void:

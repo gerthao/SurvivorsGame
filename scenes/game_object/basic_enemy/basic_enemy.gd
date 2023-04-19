@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name BasicEnemy
 
 const player_util = preload("res://utility/player_utilty/player_utility.gd")
 const BASE_SPEED = 40

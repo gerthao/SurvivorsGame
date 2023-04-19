@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name UpgradeScreen
 
 signal upgrade_selected(upgrade: AbilityUpgrade)
 
