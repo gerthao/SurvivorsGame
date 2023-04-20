@@ -2,7 +2,7 @@ extends Node
 class_name AxeAbilityController
 
 const provider = preload("res://utility/providers/node_provider.gd")
-var damage     = 10
+var damage     = 8
 
 @export var axe_ability_scene: PackedScene
 

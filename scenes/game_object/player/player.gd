@@ -8,22 +8,22 @@ const ACCELERATION_SMOOTHING = 25
 @onready var damage_collision_area: Area2D     = $CollisionArea2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var health_bar: ProgressBar           = $HealthBar
-@onready var sprite: Sprite2D                  = $Sprite2D
+@onready var visuals: Node2D                   = $Visuals
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var abilities: Node                   = $Abilities
 
 var colliding_bodies_count: int = 0
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	damage_collision_area.body_entered.connect(on_body_entered)
 	damage_collision_area.body_exited.connect(on_body_exited)
 	damage_interval_timer.timeout.connect(on_damage_interval_timeout)
 	health_component.health_changed.connect(on_health_changed)
+	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
 	update_health_bar_display()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	update_player(delta)
 	move_and_slide()
@@ -47,8 +47,13 @@ func update_velocity(delta, direction: Vector2) -> void:
 
 func update_sprite(direction: Vector2) -> void:
 	if is_moving(direction):
-		sprite.flip_h = direction.x < 0
 		animation_player.play("move")
+	else:
+		animation_player.play("RESET")
+		
+	var move_sign = sign(direction.x)
+	if move_sign != 0:
+		visuals.scale = Vector2(move_sign, 1)
 	
 																
 func update_player(delta) -> void:
@@ -89,3 +94,6 @@ func on_health_changed() -> void:
 	update_health_bar_display()
 	
 	
+func on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
+	if ability_upgrade is Ability:
+		abilities.add_child((ability_upgrade as Ability).abilty_controller_scene.instantiate())

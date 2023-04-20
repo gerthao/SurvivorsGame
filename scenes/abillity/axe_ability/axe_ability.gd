@@ -18,9 +18,8 @@ func handle_rotation(rotations: float, base_rotation: Vector2) -> void:
 	var current_direction = base_rotation.rotated(rotations * TAU)
 	var rotation_percent  = rotations / 2
 	var current_radius    = rotation_percent * BASE_RADIUS
-	var root_position     = get_axe_position()
 	
-	global_position = root_position + (current_direction * current_radius)
+	global_position = get_axe_position() + (current_direction * current_radius)
 	
 
 func get_axe_position() -> Vector2:

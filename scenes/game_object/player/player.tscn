@@ -4,8 +4,6 @@
 [ext_resource type="Script" path="res://scenes/game_object/player/player.gd" id="1_s8s2p"]
 [ext_resource type="PackedScene" uid="uid://b4xmduxkqmnuf" path="res://scenes/abillity/sword_ability_controller/sword_ability_controller.tscn" id="2_dcfv8"]
 [ext_resource type="PackedScene" uid="uid://c8yu5icorxhri" path="res://scenes/component/health_component/health_component.tscn" id="2_o22w5"]
-[ext_resource type="PackedScene" uid="uid://waw7cds818ws" path="res://scenes/abillity/axe_ability_controller/axe_ability_controller.tscn" id="4_pho5b"]
-[ext_resource type="PackedScene" uid="uid://3fntfqk3oltl" path="res://scenes/abillity/axe_ability/axe_ability.tscn" id="5_l6f7j"]
 
 [sub_resource type="Animation" id="Animation_bchy0"]
 resource_name = "move"
@@ -14,7 +12,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -23,10 +21,115 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, -8), Vector2(0, -12), Vector2(0, -8)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 0.707107, 1.51572, 1),
+"update": 0,
+"values": [0.0, 0.174533, -0.0872665, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_li1yj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_4j0jk"]
+resource_name = "walk"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -8), Vector2(0, -12), Vector2(0, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.436332, -0.436332, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 2.46229, 1, 0.784585),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.85, 1.2), Vector2(1.25, 0.85), Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fnuvn"]
 _data = {
-"move": SubResource("Animation_bchy0")
+"RESET": SubResource("Animation_li1yj"),
+"move": SubResource("Animation_bchy0"),
+"walk": SubResource("Animation_4j0jk")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1gq1"]
@@ -53,23 +156,20 @@ collision_layer = 0
 motion_mode = 1
 script = ExtResource("1_s8s2p")
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_o22w5")]
-
-[node name="AbilityManager" type="Node" parent="."]
-
-[node name="SwordAbilityController" parent="AbilityManager" instance=ExtResource("2_dcfv8")]
-
-[node name="AxeAbilityController" parent="AbilityManager" instance=ExtResource("4_pho5b")]
-axe_ability_scene = ExtResource("5_l6f7j")
-
-[node name="DamageIntervalTimer" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_fnuvn")
 }
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_o22w5")]
+
+[node name="Abilities" type="Node" parent="."]
+
+[node name="SwordAbilityController" parent="Abilities" instance=ExtResource("2_dcfv8")]
+
+[node name="DamageIntervalTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(32, 6)
@@ -85,6 +185,7 @@ value = 1.0
 show_percentage = false
 
 [node name="PickupArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 
@@ -92,11 +193,15 @@ collision_mask = 0
 position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_5i1xd")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Visuals" type="Node2D" parent="."]
+position = Vector2(-4.76837e-07, -1.90735e-06)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 position = Vector2(0, -8)
 texture = ExtResource("1_pj6gd")
 
 [node name="CollisionArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -105,5 +210,6 @@ position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_ov16c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_extk5")
