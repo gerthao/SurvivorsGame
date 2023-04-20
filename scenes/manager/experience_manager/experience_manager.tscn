@@ -22,7 +22,7 @@ func increment_experience(amount: float) -> void:
 
 
 func on_experience_vial_collected(amount: float) -> void:
-	experience_emit_after(func(): increment_experience(amount))
+	experience_emit_after(increment_experience.bind(amount))
 	experience_emit_after(handle_level_up)
 
 

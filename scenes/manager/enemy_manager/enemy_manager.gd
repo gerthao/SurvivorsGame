@@ -22,15 +22,31 @@ func on_timeout() -> void:
 	player_util.with_player(self, spawn_enemy)
 
 
-func spawn_enemy(player: Node2D) -> void:
+func get_spawn_position(player: Node2D) -> Vector2:
+	var spawn_position   = Vector2.ZERO
 	var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
-	var spawn_position   = player.global_position + (random_direction * SPAWN_RADIUS)
-	var enemy            = basic_enemy_scene.instantiate() as Node2D
-	get_entities_layer().for_each(func(entities_layer: Node2D):
-		entities_layer.add_child(enemy)
-	)
-	enemy.global_position = spawn_position
 	
+	for i in 4:
+		spawn_position       = player.global_position + (random_direction * SPAWN_RADIUS)	
+		var query_parameters = PhysicsRayQueryParameters2D.create(player.global_position, spawn_position, 1 << 0)
+		var collisions       = get_tree().root.world_2d.direct_space_state.intersect_ray(query_parameters)
+		
+		if collisions.is_empty():
+			break
+		else:
+			random_direction = random_direction.rotated(deg_to_rad(90))
+	
+	return spawn_position
+	
+
+func spawn_enemy(player: Node2D) -> void:
+	get_entities_layer().for_each(func(entities_layer: Node2D):
+		var spawn_position = get_spawn_position(player)
+		var enemy          = basic_enemy_scene.instantiate() as Node2D
+		
+		entities_layer.add_child(enemy)
+		enemy.global_position = spawn_position
+	)
 
 func get_entities_layer():
 	return Optional.new(get_tree().get_first_node_in_group("entities_layer"))
