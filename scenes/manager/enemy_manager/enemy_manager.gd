@@ -47,6 +47,7 @@ func spawn_enemy(player: Node2D) -> void:
 		entities_layer.add_child(enemy)
 		enemy.global_position = spawn_position
 	)
+	
 
 func get_entities_layer():
 	return Optional.new(get_tree().get_first_node_in_group("entities_layer"))
