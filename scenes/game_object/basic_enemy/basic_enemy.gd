@@ -7,14 +7,14 @@ const BASE_SPEED = 40
 @onready var visuals: Node2D                   = $Visuals
 @onready var sprite: Sprite2D                  = $Visuals/Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite_texture_variation = [
+@onready var sprite_texture: Texture2D = [
 	preload("res://scenes/game_object/basic_enemy/basic_enemy_1.png"),
 	preload("res://scenes/game_object/basic_enemy/basic_enemy_2.png")
 ].pick_random()
 
 
 func _process(delta):
-	sprite.texture = sprite_texture_variation
+	sprite.texture = sprite_texture
 	var direction = get_direction_to_player()
 	update_sprite(direction)
 	velocity = direction * BASE_SPEED
