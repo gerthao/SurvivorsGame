@@ -144,6 +144,7 @@ border_width_bottom = 2
 border_color = Color(0.247059, 0.14902, 0.192157, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5i1xd"]
+radius = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ov16c"]
 radius = 7.0
@@ -185,7 +186,6 @@ value = 1.0
 show_percentage = false
 
 [node name="PickupArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 16
 collision_mask = 0
 

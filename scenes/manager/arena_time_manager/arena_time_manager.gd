@@ -27,7 +27,7 @@ func next_time_target() -> float:
 	
 
 func manage_difficulty() -> void:
-	if (timer.time_left <= next_time_target()):
+	if timer.time_left <= next_time_target():
 		difficulty += 1
 		difficulty_increased.emit(difficulty)
 
