@@ -34,7 +34,6 @@ func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Diction
 	
 	var percentage_reduction = current_upgrades[SWORD_RATE_ID]["quantity"] * .1
 	apply_cooldown_reduction($Timer, base_wait_time, percentage_reduction)
-	print($Timer.wait_time)
 
 
 func apply_cooldown_reduction(timer: Timer, base_cooldown: float, percentage_reduction: float) -> void:

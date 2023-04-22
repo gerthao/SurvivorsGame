@@ -12,7 +12,7 @@ func _ready():
 	
 
 func on_area_entered(other_area: Area2D) -> void:
-	Callable(disable_collision).call_deferred()
+	disable_collision.call_deferred()
 	
 	var tween = create_tween()
 	tween.set_parallel()
