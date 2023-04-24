@@ -6,9 +6,11 @@ const player_util = preload("res://utility/player_utilty/player_utility.gd")
 const foreground_provider = preload("res://utility/providers/foreground_provider.gd")
 
 const BASE_RANGE = 150
-const SWORD_RATE_ID = "sword_rate"
+const SWORD_RATE_ID   = "sword_rate"
+const SWORD_DAMAGE_ID = "sword_damage"
 
-var damage = 5
+var base_damage               = 5
+var additional_damage_percent = 1
 var base_wait_time: float
 
 
@@ -29,11 +31,11 @@ func on_timer_timeout() -> void:
 	
 
 func on_ability_upgrade_added(upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
-	if upgrade.id != SWORD_RATE_ID:
-		return
-	
-	var percentage_reduction = current_upgrades[SWORD_RATE_ID]["quantity"] * .1
-	apply_cooldown_reduction($Timer, base_wait_time, percentage_reduction)
+	if upgrade.id == SWORD_RATE_ID:
+		var percentage_reduction = current_upgrades[SWORD_RATE_ID]["quantity"] * .1
+		apply_cooldown_reduction($Timer, base_wait_time, percentage_reduction)
+	elif upgrade.id == SWORD_DAMAGE_ID:
+		additional_damage_percent = 1 + (current_upgrades[SWORD_DAMAGE_ID]["quantity"] * .15)
 
 
 func apply_cooldown_reduction(timer: Timer, base_cooldown: float, percentage_reduction: float) -> void:
@@ -57,7 +59,7 @@ func spawn_sword_at_enemy(foreground: Node2D, enemy: Node2D) -> void:
 	var sword = sword_ability.instantiate() as SwordAbility
 	foreground.add_child(sword)
 	
-	sword.hitbox_component.damage = damage
+	sword.hitbox_component.damage = base_damage * additional_damage_percent
 	sword.global_position = enemy.global_position
 	sword.global_position += Vector2.RIGHT.rotated(randf_range(0, TAU)) * 4
 	
