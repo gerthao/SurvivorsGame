@@ -2,8 +2,8 @@ extends PanelContainer
 
 signal selected 
 
-@onready var name_label: Label = $VBoxContainer/NameLabel
-@onready var description_label: Label = $VBoxContainer/DescriptionLabel
+@onready var name_label: Label = $%NameLabel
+@onready var description_label: Label = $%DescriptionLabel
 
 
 func _ready():
