@@ -1,4 +1,5 @@
 extends PanelContainer
+class_name AbilityUpgradeCard
 
 signal selected 
 
@@ -18,3 +19,9 @@ func set_ability_upgrade(upgrade: AbilityUpgrade) -> void:
 func on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
 		selected.emit()
+
+
+func play_in(delay: float = 0) -> void:
+	modulate = Color.TRANSPARENT
+	await get_tree().create_timer(delay).timeout
+	$AnimationPlayer.play("in")
