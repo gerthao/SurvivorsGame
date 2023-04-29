@@ -10,6 +10,7 @@ var upgrade_axe_skill    = preload("res://resources/upgrades/axe.tres")
 var upgrade_axe_damage   = preload("res://resources/upgrades/axe_damage.tres")
 var upgrade_sword_rate   = preload("res://resources/upgrades/sword_rate.tres")
 var upgrade_sword_damage = preload("res://resources/upgrades/sword_damage.tres")
+var upgrade_player_speed = preload("res://resources/upgrades/player_speed.tres")
 
 
 func _ready():
@@ -21,7 +22,8 @@ func initialize_upgrade_pool() -> void:
 	upgrade_pool = WeightedTable.new() \
 		.add_item(upgrade_axe_skill, 10) \
 		.add_item(upgrade_sword_rate, 10) \
-		.add_item(upgrade_sword_damage, 10)
+		.add_item(upgrade_sword_damage, 10) \
+		.add_item(upgrade_player_speed, 5)
 		
 		
 func update_upgrade_pool(chosen_upgrade: AbilityUpgrade) -> void:

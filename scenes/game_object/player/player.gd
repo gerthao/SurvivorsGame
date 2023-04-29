@@ -1,21 +1,21 @@
 extends CharacterBody2D
 class_name Player
 
-const BASE_SPEED             = 125
-const ACCELERATION_SMOOTHING = 25
-
-@onready var damage_interval_timer: Timer      = $DamageIntervalTimer
-@onready var damage_collision_area: Area2D     = $CollisionArea2D
-@onready var health_component: HealthComponent = $HealthComponent
-@onready var health_bar: ProgressBar           = $HealthBar
-@onready var visuals: Node2D                   = $Visuals
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var abilities: Node                   = $Abilities
+@onready var damage_interval_timer: Timer          = $DamageIntervalTimer
+@onready var damage_collision_area: Area2D         = $CollisionArea2D
+@onready var velocity_component: VelocityComponent = $VelocityComponent as VelocityComponent
+@onready var health_component: HealthComponent     = $HealthComponent as HealthComponent
+@onready var health_bar: ProgressBar               = $HealthBar
+@onready var visuals: Node2D                       = $Visuals
+@onready var animation_player: AnimationPlayer     = $AnimationPlayer
+@onready var abilities: Node                       = $Abilities
 
 var colliding_bodies_count: int = 0
-
+var base_speed: int             = 0
 
 func _ready():
+	base_speed = velocity_component.max_speed
+	
 	damage_collision_area.body_entered.connect(on_body_entered)
 	damage_collision_area.body_exited.connect(on_body_exited)
 	damage_interval_timer.timeout.connect(on_damage_interval_timeout)
@@ -26,7 +26,6 @@ func _ready():
 
 func _process(delta):
 	update_player(delta)
-	move_and_slide()
 
 
 func get_movement_vector() -> Vector2:
@@ -41,8 +40,8 @@ func get_direction() -> Vector2:
 	
 	
 func update_velocity(delta, direction: Vector2) -> void:
-	var target_velocity = get_direction() * BASE_SPEED
-	velocity = velocity.lerp(target_velocity, 1 - exp(-delta * ACCELERATION_SMOOTHING))
+	velocity_component.accelerate_in_direction(direction)
+	velocity_component.move(self)
 
 
 func update_sprite(direction: Vector2) -> void:
@@ -91,9 +90,13 @@ func on_damage_interval_timeout() -> void:
 
 
 func on_health_changed() -> void:
+	GameEvents.emit_player_damaged()
 	update_health_bar_display()
 	
 	
 func on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:
 	if ability_upgrade is Ability:
 		abilities.add_child((ability_upgrade as Ability).abilty_controller_scene.instantiate())
+	elif ability_upgrade.id == "player_speed":
+		velocity_component.max_speed = \
+			base_speed + (base_speed * current_upgrades["player_speed"]["quantity"] * .1)
