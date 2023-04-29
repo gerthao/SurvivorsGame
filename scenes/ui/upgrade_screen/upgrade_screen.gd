@@ -4,7 +4,9 @@ class_name UpgradeScreen
 signal upgrade_selected(upgrade: AbilityUpgrade)
 
 @export var upgrade_card_scence: PackedScene
-@onready var card_container: HBoxContainer = $"MarginContainer/CardContainer"
+
+@onready var card_container: HBoxContainer     = $"MarginContainer/CardContainer"
+@onready var animation_player: AnimationPlayer = $"AnimationPlayer"
 
 
 func _ready():
@@ -29,5 +31,7 @@ func handle_upgrade(upgrade: AbilityUpgrade, delay: float = 0) -> void:
 
 func on_upgrade_selected(upgrade: AbilityUpgrade) -> void:
 	upgrade_selected.emit(upgrade)
+	animation_player.play("out")
+	await animation_player.animation_finished
 	get_tree().paused = false
 	queue_free()
