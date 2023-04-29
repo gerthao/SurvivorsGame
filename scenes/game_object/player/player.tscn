@@ -1,10 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4tki51o8r66u"]
+[gd_scene load_steps=21 format=3 uid="uid://c4tki51o8r66u"]
 
 [ext_resource type="Texture2D" uid="uid://civ2ie0d5uetr" path="res://scenes/game_object/player/player.png" id="1_pj6gd"]
 [ext_resource type="Script" path="res://scenes/game_object/player/player.gd" id="1_s8s2p"]
 [ext_resource type="PackedScene" uid="uid://1idlhwlet1p0" path="res://scenes/component/velocity_component/velocity_component.tscn" id="2_bway3"]
 [ext_resource type="PackedScene" uid="uid://b4xmduxkqmnuf" path="res://scenes/abillity/sword_ability_controller/sword_ability_controller.tscn" id="2_dcfv8"]
 [ext_resource type="PackedScene" uid="uid://c8yu5icorxhri" path="res://scenes/component/health_component/health_component.tscn" id="2_o22w5"]
+[ext_resource type="PackedScene" uid="uid://cbvhrddixe1o6" path="res://scenes/component/random_audio_stream_player_2d_component/random_audio_stream_player_2d_component.tscn" id="5_5fafd"]
+[ext_resource type="AudioStream" uid="uid://beisbr42tg075" path="res://assets/audio/impactMining_000.ogg" id="6_xmq46"]
+[ext_resource type="AudioStream" uid="uid://d1ox38m06btuj" path="res://assets/audio/impactMining_001.ogg" id="7_vpbpq"]
+[ext_resource type="AudioStream" uid="uid://dp17kdquvhi5d" path="res://assets/audio/impactMining_002.ogg" id="8_h7wlo"]
+[ext_resource type="AudioStream" uid="uid://dlipdy7htq3bw" path="res://assets/audio/impactMining_003.ogg" id="9_3ndd4"]
+[ext_resource type="AudioStream" uid="uid://cpqhi7ed4ov5q" path="res://assets/audio/impactMining_004.ogg" id="10_v000q"]
 
 [sub_resource type="Animation" id="Animation_li1yj"]
 length = 0.001
@@ -172,6 +178,10 @@ acceleration = 25.0
 [node name="Abilities" type="Node" parent="."]
 
 [node name="SwordAbilityController" parent="Abilities" instance=ExtResource("2_dcfv8")]
+
+[node name="HitAudioComponent" parent="." instance=ExtResource("5_5fafd")]
+unique_name_in_owner = true
+streams = Array[AudioStream]([ExtResource("6_xmq46"), ExtResource("7_vpbpq"), ExtResource("8_h7wlo"), ExtResource("9_3ndd4"), ExtResource("10_v000q")])
 
 [node name="DamageIntervalTimer" type="Timer" parent="."]
 wait_time = 0.25

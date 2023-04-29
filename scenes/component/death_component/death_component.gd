@@ -2,18 +2,19 @@ extends Node2D
 class_name DeathComponent
 
 const entities_layer_provider = preload("res://utility/providers/entities_layer_provider.gd")
+
 @export var health_component: HealthComponent
 @export var sprite: Sprite2D
+@export var streams: Array[AudioStream] = []
+
+@onready var death_audio_component = $DeathAudioComponent as RandomAudioStreamPlayer2DComponent
 
 
 func _ready():
+	death_audio_component.streams = streams
 	health_component.died.connect(on_died)
 
 
-func _process(delta):
-	pass
-	
-	
 func on_died() -> void:
 	$GPUParticles2D.texture = sprite.texture
 	var maybe_owner = Optional.new(owner).filter(func(o): return o is Node2D)
@@ -24,4 +25,5 @@ func on_died() -> void:
 
 		global_position = o.global_position
 		$AnimationPlayer.play("default")
+		death_audio_component.play_random()
 	)

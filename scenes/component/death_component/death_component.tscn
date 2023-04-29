@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://by7lt8dfbkirr"]
+[gd_scene load_steps=10 format=3 uid="uid://by7lt8dfbkirr"]
 
 [ext_resource type="Script" path="res://scenes/component/death_component/death_component.gd" id="1_3a28g"]
 [ext_resource type="Texture2D" uid="uid://sajxk4x7kmxh" path="res://scenes/game_object/basic_enemy/basic_enemy_1.png" id="2_1ujog"]
+[ext_resource type="PackedScene" uid="uid://cbvhrddixe1o6" path="res://scenes/component/random_audio_stream_player_2d_component/random_audio_stream_player_2d_component.tscn" id="3_rvw0l"]
 
 [sub_resource type="Animation" id="Animation_wp0te"]
 length = 0.001
@@ -90,3 +91,8 @@ lifetime = 0.8
 one_shot = true
 fixed_fps = 0
 interpolate = false
+
+[node name="DeathAudioComponent" parent="." instance=ExtResource("3_rvw0l")]
+unique_name_in_owner = true
+max_distance = 300.0
+bus = &"sfx"

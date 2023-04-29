@@ -1,14 +1,15 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var damage_interval_timer: Timer          = $DamageIntervalTimer
-@onready var damage_collision_area: Area2D         = $CollisionArea2D
-@onready var velocity_component: VelocityComponent = $VelocityComponent as VelocityComponent
-@onready var health_component: HealthComponent     = $HealthComponent as HealthComponent
-@onready var health_bar: ProgressBar               = $HealthBar
-@onready var visuals: Node2D                       = $Visuals
-@onready var animation_player: AnimationPlayer     = $AnimationPlayer
-@onready var abilities: Node                       = $Abilities
+@onready var damage_interval_timer: Timer      = $DamageIntervalTimer
+@onready var damage_collision_area: Area2D     = $CollisionArea2D
+@onready var velocity_component                = $VelocityComponent as VelocityComponent
+@onready var health_component                  = $HealthComponent as HealthComponent
+@onready var hit_audio_component               = $HitAudioComponent as RandomAudioStreamPlayer2DComponent
+@onready var health_bar: ProgressBar           = $HealthBar
+@onready var visuals: Node2D                   = $Visuals
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var abilities: Node                   = $Abilities
 
 var colliding_bodies_count: int = 0
 var base_speed: int             = 0
@@ -92,6 +93,7 @@ func on_damage_interval_timeout() -> void:
 func on_health_changed() -> void:
 	GameEvents.emit_player_damaged()
 	update_health_bar_display()
+	hit_audio_component.play_random()
 	
 	
 func on_ability_upgrade_added(ability_upgrade: AbilityUpgrade, current_upgrades: Dictionary) -> void:

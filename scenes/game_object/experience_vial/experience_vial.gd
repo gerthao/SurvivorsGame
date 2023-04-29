@@ -4,7 +4,7 @@ const player_util = preload("res://utility/player_utilty/player_utility.gd")
 
 @onready var collision_shape_2d = $Area2D/CollisionShape2D
 @onready var sprite_2d = $Sprite2D
-
+@onready var pickup_audio_component = $PickupAudioComponent as RandomAudioStreamPlayer2DComponent
 
 
 func _ready():
@@ -22,6 +22,7 @@ func on_area_entered(other_area: Area2D) -> void:
 	tween.tween_property(sprite_2d, "scale", Vector2.ZERO, 0.05).set_delay(0.45)
 	tween.chain()
 	tween.tween_callback(collect)
+	pickup_audio_component.play_random()
 
 
 func follow_player(percent: float, start_position: Vector2) -> void:
