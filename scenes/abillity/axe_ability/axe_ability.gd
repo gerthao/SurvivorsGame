@@ -5,12 +5,19 @@ const BASE_RADIUS = 100
 const player_util = preload("res://utility/player_utilty/player_utility.gd")
 
 @onready var hitbox_component: HitboxComponent = $HitboxComponent
+@onready var sprite_2d = $Sprite2D
+@onready var animation_player = $AnimationPlayer
 
 
 func _ready():
 	var base_rotation = Vector2.RIGHT.rotated(randf_range(0, TAU))
 	var tween         = create_tween()
-	tween.tween_method(handle_rotation.bind(base_rotation), .0, 2., 3.0)
+	tween.set_parallel()
+	tween.tween_method(handle_rotation.bind(base_rotation), .0, 2., 4.0)
+	tween.tween_property(sprite_2d, "rotation", -60, 4.0)
+	tween.chain()
+	tween.tween_property(sprite_2d, "modulate", Color(1, 1, 1, 0), 1.0)
+	tween.chain()
 	tween.tween_callback(queue_free)
 	
 

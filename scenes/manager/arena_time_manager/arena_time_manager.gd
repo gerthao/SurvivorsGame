@@ -37,6 +37,7 @@ func get_time_elasped() -> float:
 
 
 func on_timeout() -> void:
-	var victory_screen = victory_screen_scene.instantiate()
+	var victory_screen = victory_screen_scene.instantiate() as EndScreen
 	add_child(victory_screen)
 	victory_screen.set_victory()
+	victory_screen.play_victory()

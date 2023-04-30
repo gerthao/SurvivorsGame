@@ -1,6 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfme3ryvnphpf"]
+[gd_scene load_steps=10 format=3 uid="uid://bfme3ryvnphpf"]
 
 [ext_resource type="Script" path="res://scenes/ui/end_screen/end_screen.gd" id="1_gt67o"]
+[ext_resource type="PackedScene" uid="uid://riaegrwnvgoq" path="res://scenes/component/random_stream_component/random_stream_player_component.tscn" id="2_lc8g4"]
+[ext_resource type="PackedScene" uid="uid://c5c1kc7p8p6bf" path="res://scenes/ui/sound_button/sound_button.tscn" id="2_mfpi4"]
+[ext_resource type="AudioStream" uid="uid://cmcgwb1fxislp" path="res://assets/audio/jingles_victory.ogg" id="3_63w4x"]
+[ext_resource type="AudioStream" uid="uid://briie6e2vj2n5" path="res://assets/audio/jingles_defeat.ogg" id="4_sdel1"]
 
 [sub_resource type="Animation" id="Animation_41ged"]
 length = 0.001
@@ -67,6 +71,14 @@ libraries = {
 "": SubResource("AnimationLibrary_m7ykt")
 }
 
+[node name="VictoryStreamPlayer" parent="." instance=ExtResource("2_lc8g4")]
+volume_db = -5.0
+streams = Array[AudioStream]([ExtResource("3_63w4x")])
+
+[node name="DefeatStreamPlayer" parent="." instance=ExtResource("2_lc8g4")]
+volume_db = -5.0
+streams = Array[AudioStream]([ExtResource("4_sdel1")])
+
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,12 +138,12 @@ text = "You won!"
 [node name="ButtonGroup" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="RestartButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonGroup"]
+[node name="RestartButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonGroup" instance=ExtResource("2_mfpi4")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Restart"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonGroup"]
+[node name="QuitButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonGroup" instance=ExtResource("2_mfpi4")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
