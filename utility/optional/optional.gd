@@ -102,6 +102,10 @@ static func for_all_yield(optionals: Array[Optional]) -> Callable:
 			return Optional.new(null)
 		return Optional.new(c.callv(optionals.map(func(o: Optional) -> Variant: return o.value)))
 		
+		
+static func of(body: Callable) -> Optional:
+	return Optional.new(body.call())
+		
 
 func _to_string() -> String:
 	if value == null:

@@ -7,10 +7,11 @@ var base_damage                = 8
 var additional_damage_percent = 1
 
 @export var axe_ability_scene: PackedScene
+@onready var timer = $Timer
 
 
 func _ready():
-	$Timer.timeout.connect(on_timeout)
+	timer.timeout.connect(on_timeout)
 	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
 
 
