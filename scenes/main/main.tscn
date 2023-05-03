@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c333nra1suppv" path="res://scenes/game_object/basic_enemy/basic_enemy.tscn" id="7_ia5mo"]
 [ext_resource type="PackedScene" uid="uid://cgkvjshbnsj4x" path="res://scenes/ui/upgrade_screen/upgrade_screen.tscn" id="7_r2i7o"]
 
-[node name="Node" type="Node"]
+[node name="Main" type="Node"]
 script = ExtResource("1_yvmms")
 end_screen_scene = ExtResource("2_p14tv")
 
