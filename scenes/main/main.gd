@@ -22,3 +22,4 @@ func on_player_died():
 	add_child(end_screen)
 	end_screen.set_defeat()
 	end_screen.play_defeat()
+	MetaProgression.write_save_file()

@@ -15,18 +15,24 @@ func _ready():
 	
 
 func on_play_pressed() -> void:
-	Callable(get_tree().change_scene_to_file) \
-		.call_deferred("res://scenes/main/main.tscn")
+	ScreenTransition.transition()
+	await ScreenTransition.transitioned_halfway
+	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
 	
 
 func on_options_pressed() -> void:
+	ScreenTransition.transition()
+	await ScreenTransition.transitioned_halfway
 	var options = options_scence.instantiate() as OptionsMenu
 	add_child(options)
 	options.back_pressed.connect(on_options_closed.bind(options))
 	
 	
+	
+	
 func on_quit_pressed() -> void:
-	Callable(get_tree().quit).call_deferred()
+	ScreenTransition.with_transition(Callable(get_tree().quit))
+	
 	
 
 func on_options_closed(options: OptionsMenu) -> void:

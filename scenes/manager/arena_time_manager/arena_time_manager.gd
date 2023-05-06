@@ -41,3 +41,4 @@ func on_timeout() -> void:
 	add_child(victory_screen)
 	victory_screen.set_victory()
 	victory_screen.play_victory()
+	MetaProgression.write_save_file()
