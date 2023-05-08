@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bgooo7fj7sv68"]
+[gd_scene load_steps=23 format=3 uid="uid://bgooo7fj7sv68"]
 
 [ext_resource type="Script" path="res://scenes/ui/meta_upgrade_card/meta_upgrade_card.gd" id="1_7sxhm"]
 [ext_resource type="PackedScene" uid="uid://riaegrwnvgoq" path="res://scenes/component/random_stream_component/random_stream_player_component.tscn" id="2_ub7wl"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://lmtphsy0uhas" path="res://assets/audio/switch9.ogg" id="11_pajr8"]
 [ext_resource type="AudioStream" uid="uid://2nhhq5rhxwrd" path="res://assets/audio/switch10.ogg" id="12_sl038"]
 [ext_resource type="Texture2D" uid="uid://bk4c01fftfnmk" path="res://scenes/game_object/experience_vial/experience_vial.png" id="13_k158f"]
+[ext_resource type="PackedScene" uid="uid://c5c1kc7p8p6bf" path="res://scenes/ui/sound_button/sound_button.tscn" id="14_4g26j"]
 
 [sub_resource type="Animation" id="Animation_pbuyx"]
 length = 0.001
@@ -110,27 +111,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
-tracks/2/type = "method"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HoverPlayerComponent")
-tracks/2/interp = 1
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"play_random"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:rotation")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
@@ -258,17 +245,13 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.247059, 0.14902, 0.192157, 1)
 
-[node name="MetaUpgradeCard" type="PanelContainer" groups=["upgrade_card"]]
-custom_minimum_size = Vector2(180, 0)
-offset_right = 200.0
-offset_bottom = 180.0
-pivot_offset = Vector2(90, 90)
+[node name="MetaUpgradeCard" type="PanelContainer" groups=["meta_upgrade_card"]]
+custom_minimum_size = Vector2(170, 0)
+offset_right = 170.0
+offset_bottom = 176.0
+pivot_offset = Vector2(85, 84)
 mouse_default_cursor_shape = 2
 script = ExtResource("1_7sxhm")
-
-[node name="HoverPlayerComponent" parent="." instance=ExtResource("2_ub7wl")]
-volume_db = -8.0
-streams = Array[AudioStream]([ExtResource("3_0075n"), ExtResource("4_7vppv"), ExtResource("5_glonc"), ExtResource("6_fukdk"), ExtResource("7_4wunm"), ExtResource("8_wfpwv"), ExtResource("9_l20ng"), ExtResource("10_2se01"), ExtResource("11_pajr8"), ExtResource("12_sl038")])
 
 [node name="ClickPlayerComponent" parent="." instance=ExtResource("2_ub7wl")]
 streams = Array[AudioStream]([ExtResource("3_0075n"), ExtResource("4_7vppv"), ExtResource("5_glonc"), ExtResource("6_fukdk"), ExtResource("7_4wunm"), ExtResource("8_wfpwv"), ExtResource("9_l20ng"), ExtResource("10_2se01"), ExtResource("11_pajr8"), ExtResource("12_sl038")])
@@ -326,7 +309,8 @@ layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("13_k158f")
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HSplitContainer"]
+[node name="ProgressLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -334,6 +318,7 @@ theme_type_variation = &"BlueOutlineLabel"
 text = "50/200"
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_x0lpf")
@@ -341,7 +326,7 @@ max_value = 1.0
 value = 0.25
 show_percentage = false
 
-[node name="PurchaseButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="PurchaseButton" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("14_4g26j")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Purchase"

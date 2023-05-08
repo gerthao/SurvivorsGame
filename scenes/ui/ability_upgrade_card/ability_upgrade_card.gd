@@ -59,5 +59,5 @@ func on_mouse_entered() -> void:
 
 func on_mouse_exited() -> void:
 	if disabled: return
-		
+	
 	animation_player.queue("hover_out")
