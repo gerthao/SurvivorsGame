@@ -6,14 +6,14 @@ class_name EndScreen
 @onready var panel_container       = $%PanelContainer
 @onready var title_label           = %TitleLabel
 @onready var description_label     = %DescriptionLabel
-@onready var restart_button        = %RestartButton
+@onready var continue_button       = %ContinueButton
 @onready var quit_button           = %QuitButton
 
 
 func _ready():
 	initialize_panel()
 	get_tree().paused = true
-	restart_button.pressed.connect(on_restart_pressed)
+	continue_button.pressed.connect(on_continue_pressed)
 	quit_button.pressed.connect(on_quit_pressed)
 
 
@@ -45,12 +45,11 @@ func play_defeat() -> void:
 	defeat_stream_player.play_random()
 
 
-func on_restart_pressed() -> void:
+func on_continue_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
 	
 
 func on_quit_pressed() -> void:
-	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/ui/main_menu/main_menu.tscn")
-
+	get_tree().paused = false

@@ -8,6 +8,7 @@ class_name BasicEnemy
 @onready var visuals: Node2D                       = $Visuals
 @onready var sprite: Sprite2D                      = $Visuals/Sprite2D
 @onready var animation_player: AnimationPlayer     = $AnimationPlayer
+@onready var collision_shape_2d: CollisionShape2D  = $CollisionShape2D
 
 @onready var sprite_texture: Texture2D = [
 	preload("res://scenes/game_object/basic_enemy/basic_enemy_1.png"),
@@ -24,6 +25,10 @@ func _process(delta):
 	velocity_component.accelerate_to_player()
 	velocity_component.move(self)
 	update_sprite(velocity_component.velocity)
+
+
+func get_collision_size() -> int:
+	return (collision_shape_2d.shape as CircleShape2D).radius * 4
 	
 
 func update_sprite(direction: Vector2) -> void:

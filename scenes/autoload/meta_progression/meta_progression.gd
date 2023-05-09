@@ -11,7 +11,7 @@ const QUANTITY         = "quantity"
 var save_data: Dictionary = {
 	UPGRADE_CURRENCY: 0,
 	UPGRADES: {}
-} 
+}
 
 
 func _ready():
@@ -25,6 +25,40 @@ func get_upgrade_currency() -> int:
 
 func get_upgrades() -> Dictionary:
 	return save_data[UPGRADES]
+	
+
+func empty_upgrade() -> Dictionary:
+	return { QUANTITY: 0 }
+	
+
+
+func find_upgrade(key: Variant) -> Optional:
+	var upgrades = get_upgrades()
+	if upgrades.has[key]:
+		return Optional.new(upgrades[key])
+	return Optional.new(null)
+	
+	
+func find_upgrade2(keys: Array[Variant]) -> Optional:
+	var upgrades = get_upgrades()
+	var result   = null
+	
+	for key in keys:
+		if upgrades is Dictionary && upgrades.has[key]:
+			upgrades = upgrades[key]
+			result   = upgrades[key]
+		else:
+			return Optional.new(null)
+	
+	return Optional.new(result)
+	
+	
+func get_upgrade_quantity(id: String) -> int:
+	return Optional.new(save_data) \
+		.map(func(sd: Dictionary): return sd.get(UPGRADES)) \
+		.map(func(u: Dictionary): return u.get(id)) \
+		.map(func(u: Dictionary): return u.get(QUANTITY)) \
+		.get_or_else(0) as int
 	
 	
 func purchase_upgrade(upgrade: MetaUpgrade) -> void:

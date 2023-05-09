@@ -26,13 +26,13 @@ func on_timeout() -> void:
 	player_util.with_player(self, spawn_enemy)
 
 
-func get_spawn_position(player: Node2D) -> Vector2:
+func get_spawn_position(player: Node2D, enemy: Node2D) -> Vector2:
 	var spawn_position   = Vector2.ZERO
 	var random_direction = Vector2.RIGHT.rotated(randf_range(0, TAU))
 	
 	for i in 4:
-		spawn_position       = player.global_position + (random_direction * SPAWN_RADIUS)	
-		var query_parameters = PhysicsRayQueryParameters2D.create(player.global_position, spawn_position, 1 << 0)
+		spawn_position       = player.global_position + (random_direction * SPAWN_RADIUS)
+		var query_parameters = PhysicsRayQueryParameters2D.create(player.global_position, spawn_position + enemy.get_collision_size(), 1 << 0)
 		var collisions       = get_tree().root.world_2d.direct_space_state.intersect_ray(query_parameters)
 		
 		if collisions.is_empty():
@@ -47,7 +47,7 @@ func spawn_enemy(player: Node2D) -> void:
 	Optional.for_all_yield([get_entities_layer(), enemy_table.pick_item()]).call(func(el: Node2D, es: PackedScene):
 		var enemy = es.instantiate() as Node2D
 		el.add_child(enemy)
-		enemy.global_position = get_spawn_position(player)
+		enemy.global_position = get_spawn_position(player, enemy)
 	)
 
 

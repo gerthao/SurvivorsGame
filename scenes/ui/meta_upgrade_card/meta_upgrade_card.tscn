@@ -248,7 +248,7 @@ border_color = Color(0.247059, 0.14902, 0.192157, 1)
 [node name="MetaUpgradeCard" type="PanelContainer" groups=["meta_upgrade_card"]]
 custom_minimum_size = Vector2(170, 0)
 offset_right = 170.0
-offset_bottom = 176.0
+offset_bottom = 185.0
 pivot_offset = Vector2(85, 84)
 mouse_default_cursor_shape = 2
 script = ExtResource("1_7sxhm")
@@ -300,12 +300,28 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 
+[node name="HSplitContainer2" type="HSplitContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HSplitContainer2"]
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+text = "Count"
+
+[node name="CountLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HSplitContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"BlueOutlineLabel"
+text = "x0"
+
 [node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 mouse_filter = 2
 texture = ExtResource("13_k158f")
 

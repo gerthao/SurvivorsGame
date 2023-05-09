@@ -250,7 +250,7 @@ _data = {
 [node name="AbilityUpgradeCard" type="PanelContainer" groups=["upgrade_card"]]
 custom_minimum_size = Vector2(120, 150)
 offset_right = 150.0
-offset_bottom = 150.0
+offset_bottom = 167.0
 pivot_offset = Vector2(75, 75)
 mouse_default_cursor_shape = 2
 script = ExtResource("1_vc2l1")
